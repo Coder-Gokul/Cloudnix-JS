@@ -36,7 +36,7 @@ document
 
     reverseResult.innerHTML = "";
     reverseError.innerHTML = "";
-    
+
     const str = document.getElementById("stringInput").value;
     const reversedString = reverse(str);
 
@@ -84,12 +84,8 @@ document.getElementById("largestWordForm").addEventListener("submit", function (
     } else if (!validName.test(words)) {
       document.getElementById(
         "largestWordError"
-      ).innerText = `Please enter valid input!`;
-    } else if (number.test(words)) {
-      document.getElementById(
-        "largestWordError"
-      ).innerText = `Please enter valid input!`;
-    } else {
+      ).innerText = `Enter words, no symbols or numbers!`;
+    }else {
       document.getElementById(
         "largestWordResult"
       ).innerText = `Largest Word: ${largestWord}`;
