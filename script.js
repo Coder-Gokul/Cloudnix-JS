@@ -58,6 +58,7 @@ document
   .getElementById("largestWordForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
+    var number = /^\d+$/;
     const words = document
       .getElementById("wordInput")
       .value.split(",")
@@ -67,6 +68,10 @@ document
       document.getElementById(
         "largestWordResult"
       ).innerText = `Please don't leave it empty!`;
+    } else if (number.test(words)) {
+      document.getElementById(
+        "largestWordResult"
+      ).innerText = `Please enter valid input!`;
     } else {
       document.getElementById(
         "largestWordResult"
@@ -75,6 +80,8 @@ document
   });
 
 // Cookies Function
+
+// Function to set cookies
 function setCookie(name, value, days) {
   let expires = "";
   if (days) {
@@ -85,6 +92,7 @@ function setCookie(name, value, days) {
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
+// Function to get cookies
 function getCookie(name) {
   const nameEQ = name + "=";
   const ca = document.cookie.split(";");
@@ -103,8 +111,13 @@ document
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
     var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    var number = /^\d+$/;
+    var letter = /^[a-zA-Z]/;
+
+    // Save user details in cookies
     setCookie("userName", name, 7);
     setCookie("userPhone", phone, 7);
+
     if (checkWhitespace(name)) {
       document.getElementById(
         "CookiesResult"
@@ -121,6 +134,14 @@ document
       document.getElementById(
         "CookiesResult"
       ).innerText = `Please don't use Special Characters!`;
+    } else if (number.test(name)) {
+      document.getElementById(
+        "CookiesResult"
+      ).innerText = `Please enter valid input!`;
+    } else if (letter.test(phone)) {
+      document.getElementById(
+        "CookiesResult"
+      ).innerText = `Please enter valid input!`;
     } else {
       document.getElementById(
         "CookiesResult"
@@ -132,6 +153,12 @@ document
 window.onload = function () {
   const savedName = getCookie("userName");
   const savedPhone = getCookie("userPhone");
-  if (savedName) document.getElementById("name").value = savedName;
-  if (savedPhone) document.getElementById("phone").value = savedPhone;
+
+  if (savedName) {
+    document.getElementById("name").value = savedName;
+    document.querySelector(".logo").textContent = savedName; // Update the <h1> tag
+  }
+  if (savedPhone) {
+    document.getElementById("phone").value = savedPhone;
+  }
 };
