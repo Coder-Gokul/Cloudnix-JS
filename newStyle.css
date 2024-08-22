@@ -209,9 +209,13 @@
 }
 
 .footer-info span {
-  font-family: var(--font1);
+  font-family: var(--font3);
   font-weight: 600;
   margin-right: 10px;
+}
+
+.footer-info .number {
+  font-weight: 400;
 }
 
 .footer-info p {

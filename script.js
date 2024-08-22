@@ -118,10 +118,12 @@ document
     setCookie("userName", name, 7);
     setCookie("userPhone", phone, 7);
 
-    if (checkWhitespace(name)) {
+  if (checkWhitespace(name)) {
       document.getElementById(
         "CookiesResult"
       ).innerText = `Please don't leave it empty!`;
+    } else if (checkWhitespace(name) && letter.test(name)) {
+      document.getElementById("CookiesResult").innerText = `Done!`;
     } else if (checkWhitespace(phone)) {
       document.getElementById(
         "CookiesResult"
@@ -160,5 +162,6 @@ window.onload = function () {
   }
   if (savedPhone) {
     document.getElementById("phone").value = savedPhone;
+    document.querySelector(".number").textContent = savedPhone;
   }
 };
