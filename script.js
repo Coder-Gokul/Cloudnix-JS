@@ -129,11 +129,11 @@ function saveDetails(event) {
   if (name.trim() === "") {
     errorElement.innerText = "Please Enter Your Name!";
   } else if (!validName.test(name)) {
-    errorElement.innerText = "Name contains invalid characters!";
+    errorElement.innerText = "Invalid Name!";
   } else if (phone.trim() === "") {
     errorElement.innerText = "Please Enter Your Phone Number!";
   } else if (!validPhone.test(phone)) {
-    errorElement.innerText = "Phone Number contains invalid characters!";
+    errorElement.innerText = "Invalid Phone Number!";
   } else {
 
 
