@@ -1,4 +1,4 @@
-// Max Function
+//-----------------------------------Max Function----------------------------------------
 function max(a, b) {
   if (a > b) {
     return a;
@@ -12,8 +12,11 @@ document.getElementById("maxForm").addEventListener("submit", function (event) {
   const num1 = parseFloat(document.getElementById("num1").value);
   const num2 = parseFloat(document.getElementById("num2").value);
   const maxResult = max(num1, num2);
+
   document.getElementById("maxResult").innerText = `Max: ${maxResult}`;
 });
+
+// --------------------------------Reverse Function-----------------------------------------
 
 // Function to check for Whitespace
 function checkWhitespace(str) {
@@ -26,15 +29,20 @@ function reverse(str) {
 }
 
 document
-  .getElementById("reverseForm")
-  .addEventListener("submit", function (event) {
+  .getElementById("reverseForm").addEventListener("submit", function (event) {
     event.preventDefault();
+    const reverseResult = document.getElementById("reverseResult");
+    const reverseError = document.getElementById("reverseError");
+
+    reverseResult.innerHTML = "";
+    reverseError.innerHTML = "";
+    
     const str = document.getElementById("stringInput").value;
     const reversedString = reverse(str);
 
     if (checkWhitespace(str)) {
       document.getElementById(
-        "reverseResult"
+        "reverseError"
       ).innerText = `Please don't leave it empty!`;
     } else {
       document.getElementById(
@@ -43,9 +51,11 @@ document
     }
   });
 
-// Find Largest Word Function
+//-------------------------Find Largest Word Function---------------------------------
+
 function findLongestWord(words) {
   let longestWord = "";
+
   words.forEach((word) => {
     if (word.length > longestWord.length) {
       longestWord = word;
@@ -54,23 +64,30 @@ function findLongestWord(words) {
   return longestWord;
 }
 
-document
-  .getElementById("largestWordForm")
-  .addEventListener("submit", function (event) {
+document.getElementById("largestWordForm").addEventListener("submit", function (event) {
     event.preventDefault();
+
+    const largestWordResult = document.getElementById("largestWordResult");
+    largestWordResult.innerHTML = "";
+    const largestWordError = document.getElementById("largestWordError");
+    largestWordError.innerHTML = "";
+
     var number = /^\d+$/;
-    const words = document
-      .getElementById("wordInput")
-      .value.split(",")
-      .map((word) => word.trim());
+    const validName = /^[a-z,A-Z\s]*$/;
+    const words = document.getElementById("wordInput").value.split(",").map((word) => word.trim());
     const largestWord = findLongestWord(words);
+
     if (checkWhitespace(wordInput.value)) {
       document.getElementById(
-        "largestWordResult"
+        "largestWordError"
       ).innerText = `Please don't leave it empty!`;
+    } else if (!validName.test(words)) {
+      document.getElementById(
+        "largestWordError"
+      ).innerText = `Please enter valid input!`;
     } else if (number.test(words)) {
       document.getElementById(
-        "largestWordResult"
+        "largestWordError"
       ).innerText = `Please enter valid input!`;
     } else {
       document.getElementById(
@@ -79,89 +96,64 @@ document
     }
   });
 
-// Cookies Function
+//-----------------------------Cookies Function---------------------------------------
 
-// Function to set cookies
-function setCookie(name, value, days) {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
+// Function to load details from cookies
 
-// Function to get cookies
-function getCookie(name) {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
+function loadDetails() {
+  const cookies = document.cookie.split(";");
 
-document
-  .getElementById("cookiesForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    var number = /^\d+$/;
-    var letter = /^[a-zA-Z]/;
+  cookies.forEach((cookie) => {
+    const [name, value] = cookie.trim().split("=");
 
-    // Save user details in cookies
-    setCookie("userName", name, 7);
-    setCookie("userPhone", phone, 7);
-
-  if (checkWhitespace(name)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please don't leave it empty!`;
-    } else if (checkWhitespace(name) && letter.test(name)) {
-      document.getElementById("CookiesResult").innerText = `Done!`;
-    } else if (checkWhitespace(phone)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please don't leave it empty!`;
-    } else if (format.test(name)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please don't use Special Characters!`;
-    } else if (format.test(phone)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please don't use Special Characters!`;
-    } else if (number.test(name)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please enter valid input!`;
-    } else if (letter.test(phone)) {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Please enter valid input!`;
-    } else {
-      document.getElementById(
-        "CookiesResult"
-      ).innerText = `Data saved successfully!`;
+    if (name === "name") {
+      document.querySelector(".logo").innerText = decodeURIComponent(value);
+    } else if (name === "phone") {
+      document.querySelector(".number").innerHTML = `${decodeURIComponent(value)}`;
     }
   });
+}
 
-// Load saved cookies on page load
-window.onload = function () {
-  const savedName = getCookie("userName");
-  const savedPhone = getCookie("userPhone");
+// Function to save details in cookies
 
-  if (savedName) {
-    document.getElementById("name").value = savedName;
-    document.querySelector(".logo").textContent = savedName; // Update the <h1> tag
+function saveDetails(event) {
+  event.preventDefault(); // Prevent the form from submitting the default way
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const errorElement = document.getElementById("cookiesError");
+  const resultElement = document.getElementById("cookiesResult");
+
+  const validName = /^[a-zA-Z\s]*$/;
+  const validPhone = /^[0-9\s]*$/;
+
+  errorElement.innerText = "";
+  resultElement.innerText = "";
+
+  if (name.trim() === "") {
+    errorElement.innerText = "Please Enter Your Name!";
+  } else if (!validName.test(name)) {
+    errorElement.innerText = "Name contains invalid characters!";
+  } else if (phone.trim() === "") {
+    errorElement.innerText = "Please Enter Your Phone Number!";
+  } else if (!validPhone.test(phone)) {
+    errorElement.innerText = "Phone Number contains invalid characters!";
+  } else {
+
+
+    // Cookies with an expiry date of 7 days
+    const expiryDate = new Date();
+    expiryDate.setTime(expiryDate.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days
+    const expires = `expires=${expiryDate.toUTCString()}`;
+
+    document.cookie = `name=${encodeURIComponent(name)}; ${expires}; path=/`;
+    document.cookie = `phone=${encodeURIComponent(phone)}; ${expires}; path=/`;
+
+    errorElement.innerText = "";
+    document.getElementById("cookiesResult").innerText =
+      "Data Saved Successfully!";
   }
-  if (savedPhone) {
-    document.getElementById("phone").value = savedPhone;
-    document.querySelector(".number").textContent = savedPhone;
-  }
-};
+}
+
+document.getElementById("cookiesForm").addEventListener("submit", saveDetails);
+loadDetails();

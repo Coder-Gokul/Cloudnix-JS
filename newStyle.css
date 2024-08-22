@@ -242,7 +242,7 @@
 }
 
 
-#box{
+.box{
   max-width: 400px;
   background-color:var(--secondary) ;
   margin: auto;
@@ -301,14 +301,27 @@ label{
 
 button{
   font-family: var(--font3) ;
-  padding: 4px 8px;
-  border-radius:5px;
+  padding: 10px 8px;
+  border-radius:10px;
   background-color: var(--primary-dark);
   color: var(--white);
   border: none;
+  width: 80%;
+  margin-top: 15px;
 }
 
+.result{
+  margin-top: 15px;
+  font-size: 1.3rem;
+  letter-spacing: 1.1px;
+}
 
+.error{
+  margin-top: 15px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: red;
+}
 
 /*-------------- Responsive Design -------------*/
 @media (max-width: 375px) {
