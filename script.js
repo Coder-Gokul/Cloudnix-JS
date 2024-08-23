@@ -1,18 +1,16 @@
 //-----------------------------------Max Function----------------------------------------
-function max(a, b) {
-  if (a > b) {
-    return a;
-  } else {
-    return b;
-  }
-}
 
 document.getElementById("maxForm").addEventListener("submit", function (event) {
   event.preventDefault();
+  
+  // Get the input values and convert them to float
   const num1 = parseFloat(document.getElementById("num1").value);
   const num2 = parseFloat(document.getElementById("num2").value);
-  const maxResult = max(num1, num2);
-
+  
+  // Find the maximum value
+  const maxResult = Math.max(num1, num2);
+  
+  // Display the result
   document.getElementById("maxResult").innerText = `Max: ${maxResult}`;
 });
 
@@ -40,7 +38,7 @@ document
     const str = document.getElementById("stringInput").value;
     const reversedString = reverse(str);
 
-    if (checkWhitespace(str)) {
+    if(str.trim() === ""){
       document.getElementById(
         "reverseError"
       ).innerText = `Please don't leave it empty!`;
@@ -77,7 +75,8 @@ document.getElementById("largestWordForm").addEventListener("submit", function (
     const words = document.getElementById("wordInput").value.split(",").map((word) => word.trim());
     const largestWord = findLongestWord(words);
 
-    if (checkWhitespace(wordInput.value)) {
+ 
+    if (largestWord.trim() === "") {
       document.getElementById(
         "largestWordError"
       ).innerText = `Please don't leave it empty!`;

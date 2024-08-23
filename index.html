@@ -112,14 +112,15 @@
                     <form id="maxForm">
                         <div class="form-group">
                             <label for="num1">Num 1:<span class="required">*</span></label>
-                            <input type="number" id="num1" placeholder="Enter any number" required >
+                            <input type="number" id="num1" step="any" placeholder="Enter first number" required>
                         </div>
                         <div class="form-group">
                             <label for="num2">Num 2:<span class="required">*</span></label>
-                            <input type="number" id="num2" placeholder="Enter any number" required>
+                            <input type="number" id="num2" step="any" placeholder="Enter second number" required>
                         </div>
                         <button type="submit">Find Max</button>
                         <div id="maxResult" class="result"></div>
+                        <div id="maxError" class="error"></div>
                     </form>
                 </div>
             </div>
@@ -134,7 +135,7 @@
                             <label for="stringInput">String:<span class="required">*</span></label>
                             <input type="text" id="stringInput" placeholder="Enter any string" required>
                         </div>
-                        <button type="submit" >Reverse String</button>
+                        <button type="submit">Reverse String</button>
                         <div id="reverseResult" class="result"></div>
                         <div id="reverseError" class="error"></div>
                     </form>
@@ -149,13 +150,13 @@
                     <form id="largestWordForm">
                         <div class="form-group">
                             <label for="wordInput">Words:<span class="required">*</span></label>
-                            <input type="text" id="wordInput" placeholder="Eg: ram,kannan,kumar" required>               
+                            <input type="text" id="wordInput" placeholder="Eg: ram,kannan,kumar" required>
                         </div>
                         <p style="font-size: 12px;letter-spacing: 1px;">(Enter the words seprated by comma)</p>
                         <button type="submit">Find Largest Word</button>
                         <div id="largestWordResult" class="result"></div>
-                        <div id="largestWordError" class="error" >                   
-                        </div>          
+                        <div id="largestWordError" class="error">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -174,7 +175,8 @@
                             <label for="phone">Phone:<span class="required">*</span></label>
                             <input type="text" id="phone" placeholder="Enter your number" required>
                         </div>
-                        <p style="font-size: 12px;letter-spacing: 1px;">(Details will remain saved when the page reloads)</p>
+                        <p style="font-size: 12px;letter-spacing: 1px;">(Details will remain saved when the page
+                            reloads)</p>
                         <button type="submit" id="submit">Save</button>
                         <div id="cookiesError" class="error"></div>
                         <div id="cookiesResult" class="result"></div>
