@@ -1,40 +1,33 @@
 //-----------------------------------Max Function----------------------------------------
-function max(a, b) {
-  if (a > b) {
-      return a;
-  } else {
-      return b;
-  }
-}
 
 document.getElementById("maxForm").addEventListener("submit", function (event) {
   event.preventDefault();
-  
+
   // Get the input values and convert them to float
   const num1 = parseFloat(document.getElementById("num1").value);
   const num2 = parseFloat(document.getElementById("num2").value);
-  
+
   // Find the maximum value
   const maxResult = max(num1, num2);
-  
+
+  //max() function
+  function max(num1, num2) {
+    if (num1 > num2) {
+      return num1;
+    } else {
+      return num2;
+    }
+  }
+
   // Display the result
   document.getElementById("maxResult").innerText = `Max: ${maxResult}`;
 });
 
 // --------------------------------Reverse Function-----------------------------------------
 
-// Function to check for Whitespace
-function checkWhitespace(str) {
-  return /\s/.test(str);
-}
-
-// Reverse Function
-function reverse(str) {
-  return str.split("").reverse().join("");
-}
-
 document
-  .getElementById("reverseForm").addEventListener("submit", function (event) {
+  .getElementById("reverseForm")
+  .addEventListener("submit", function (event) {
     event.preventDefault();
     const reverseResult = document.getElementById("reverseResult");
     const reverseError = document.getElementById("reverseError");
@@ -45,31 +38,24 @@ document
     const str = document.getElementById("stringInput").value;
     const reversedString = reverse(str);
 
-    if(str.trim() === ""){
-      document.getElementById(
-        "reverseError"
-      ).innerText = `Please don't leave it empty!`;
+    //reverse() function
+    function reverse(str) {
+      return str.split("").reverse().join("");
+    }
+
+    //validation
+    if (str.trim() === "") {
+      reverseError.innerText = `Please don't leave it empty!`;
     } else {
-      document.getElementById(
-        "reverseResult"
-      ).innerText = `Reversed: ${reversedString}`;
+      reverseResult.innerText = `Reversed: ${reversedString}`;
     }
   });
 
 //-------------------------Find Largest Word Function---------------------------------
 
-function findLongestWord(words) {
-  let longestWord = "";
-
-  words.forEach((word) => {
-    if (word.length > longestWord.length) {
-      longestWord = word;
-    }
-  });
-  return longestWord;
-}
-
-document.getElementById("largestWordForm").addEventListener("submit", function (event) {
+document
+  .getElementById("largestWordForm")
+  .addEventListener("submit", function (event) {
     event.preventDefault();
 
     const largestWordResult = document.getElementById("largestWordResult");
@@ -79,22 +65,30 @@ document.getElementById("largestWordForm").addEventListener("submit", function (
 
     var number = /^\d+$/;
     const validName = /^[a-z,A-Z\s]*$/;
-    const words = document.getElementById("wordInput").value.split(",").map((word) => word.trim());
-    const largestWord = findLongestWord(words);
+    const words = document
+      .getElementById("wordInput")
+      .value.split(",")
+      .map((word) => word.trim());
+    const largestWord = FindLongestWord(words);
 
- 
+    //FindLongestWord() function
+    function FindLongestWord(words) {
+      let longestWord = "";
+
+      words.forEach((word) => {
+        if (word.length > longestWord.length) {
+          longestWord = word;
+        }
+      });
+      return longestWord;
+    }
+
     if (largestWord.trim() === "") {
-      document.getElementById(
-        "largestWordError"
-      ).innerText = `Please don't leave it empty!`;
+      largestWordError.innerText = `Please don't leave it empty!`;
     } else if (!validName.test(words)) {
-      document.getElementById(
-        "largestWordError"
-      ).innerText = `Enter words, no symbols or numbers!`;
-    }else {
-      document.getElementById(
-        "largestWordResult"
-      ).innerText = `Largest Word: ${largestWord}`;
+      largestWordError.innerText = `Enter words, no symbols or numbers!`;
+    } else {
+      largestWordResult.innerText = `Largest Word: ${largestWord}`;
     }
   });
 
@@ -111,7 +105,9 @@ function loadDetails() {
     if (name === "name") {
       document.querySelector(".logo").innerText = decodeURIComponent(value);
     } else if (name === "phone") {
-      document.querySelector(".number").innerHTML = `${decodeURIComponent(value)}`;
+      document.querySelector(".number").innerHTML = `${decodeURIComponent(
+        value
+      )}`;
     }
   });
 }
@@ -141,8 +137,6 @@ function saveDetails(event) {
   } else if (!validPhone.test(phone)) {
     errorElement.innerText = "Invalid Phone Number!";
   } else {
-
-
     // Cookies with an expiry date of 7 days
     const expiryDate = new Date();
     expiryDate.setTime(expiryDate.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days

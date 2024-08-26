@@ -238,7 +238,7 @@
   font-family: var(--font3);
 }
 
-.box {
+.form-wrapper {
   max-width: 600px;
   background-color: var(--secondary);
   margin: auto;
