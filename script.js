@@ -1,4 +1,11 @@
 //-----------------------------------Max Function----------------------------------------
+function max(a, b) {
+  if (a > b) {
+      return a;
+  } else {
+      return b;
+  }
+}
 
 document.getElementById("maxForm").addEventListener("submit", function (event) {
   event.preventDefault();
@@ -8,7 +15,7 @@ document.getElementById("maxForm").addEventListener("submit", function (event) {
   const num2 = parseFloat(document.getElementById("num2").value);
   
   // Find the maximum value
-  const maxResult = Math.max(num1, num2);
+  const maxResult = max(num1, num2);
   
   // Display the result
   document.getElementById("maxResult").innerText = `Max: ${maxResult}`;
